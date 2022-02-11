@@ -13,7 +13,7 @@ const router = express.Router()
 router.get("/me", protect, getUser)
 router.post("/register", addUser)
 router.post("/login", loginUser)
-router.put("/me/update", updateUser)
-router.delete("/me/delete", deleteUser)
+router.put("/me/update", protect, updateUser)
+router.delete("/me/delete", protect, deleteUser)
 
 module.exports = router

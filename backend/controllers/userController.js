@@ -1,5 +1,6 @@
 const expressAsyncHandler = require("express-async-handler")
 const User = require("../models/userModel")
+const Task = require("../models/taskModel")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 
@@ -80,9 +81,11 @@ const getUser = expressAsyncHandler(async (req, res) => {
 //!@access private
 
 const deleteUser = expressAsyncHandler(async (req, res) => {
-  res.status(200).json({
-    mesage: "delete current user",
-  })
+  const user = await User.findById(req.user._id)
+  const tasks = await Task.find({ user: req.user._id })
+  tasks.map((task) => task.delete())
+  user.delete()
+  res.status(200).json(user)
 })
 
 //!@desc update jwt user
