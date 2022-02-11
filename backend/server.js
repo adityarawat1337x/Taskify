@@ -10,6 +10,7 @@ const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use("/api/task", require("./routes/taskRoute"))
+app.use("/api/user", require("./routes/userRoute"))
 app.use(taskErrorHandler)
 
 app.listen(port, () => {

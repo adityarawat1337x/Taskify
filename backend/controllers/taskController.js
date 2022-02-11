@@ -1,16 +1,17 @@
 const expressAsyncHandler = require("express-async-handler")
 const Task = require("../models/taskModel")
-//@desc get goals
-//@route GET /api/task
-//@access private
+
+//!@desc get goals
+//!@route GET /api/task
+//!@access private
 const getTasks = expressAsyncHandler(async (req, res) => {
   const task = await Task.find()
   res.status(200).json(task)
 })
 
-//@desc post goal
-//@route POST /api/task
-//@access private
+//!@desc post goal
+//!@route POST /api/task
+//!@access private
 const postTask = expressAsyncHandler(async (req, res) => {
   if (!req.body.task) {
     res.status(400)
@@ -20,9 +21,9 @@ const postTask = expressAsyncHandler(async (req, res) => {
   res.status(200).json(task)
 })
 
-//@desc udpdate goals private
-//@route PUT /api/task/:id
-//@access private
+//!@desc udpdate goals private
+//!@route PUT /api/task/:id
+//!@access private
 const putTask = expressAsyncHandler(async (req, res) => {
   const task = await Task.findById(req.params.id)
 
@@ -40,9 +41,9 @@ const putTask = expressAsyncHandler(async (req, res) => {
   res.status(200).json(updatedTask)
 })
 
-//@desc delete goals private
-//@route DELETE /api/task/:id
-//@access private
+//!@desc delete goals private
+//!@route DELETE /api/task/:id
+//!@access private
 const deleteTask = expressAsyncHandler(async (req, res) => {
   const task = await Task.findById(req.params.id)
 
