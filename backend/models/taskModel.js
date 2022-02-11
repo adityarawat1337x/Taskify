@@ -6,8 +6,13 @@ const taskSchema = mongoose.Schema(
       type: String,
       required: [true, "Task is required"],
     },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: [true, "UserId is required"],
+      ref: "User",
+    },
   },
-  { timestamps: true }
+  { timestamps: true, strict: true }
 )
 
 module.exports = mongoose.model("Task", taskSchema)

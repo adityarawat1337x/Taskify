@@ -14,7 +14,7 @@ const protect = expressAsyncHandler(async (req, res, next) => {
 
       //?verify token valid
       const decodedToken = jwt.verify(token, process.env.JWT_SECRET)
-      console.log(`token ${decodedToken.id}`.red.inverse)
+
       //?send data back
       req.user = await User.findById(decodedToken.id).select("-password")
       next()
