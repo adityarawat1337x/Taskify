@@ -6,10 +6,11 @@ const {
   deleteUser,
   addUser,
 } = require("../controllers/userController")
+const protect = require("../middlewares/authMiddleware")
 
 const router = express.Router()
 
-router.get("/me", getUser)
+router.get("/me", protect, getUser)
 router.post("/register", addUser)
 router.post("/login", loginUser)
 router.put("/me/update", updateUser)

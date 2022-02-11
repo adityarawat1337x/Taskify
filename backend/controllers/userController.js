@@ -72,9 +72,7 @@ const loginUser = expressAsyncHandler(async (req, res) => {
 //!@access private
 
 const getUser = expressAsyncHandler(async (req, res) => {
-  res.status(200).json({
-    mesage: "get current user",
-  })
+  res.status(200).json(req.user)
 })
 
 //!@desc delete jwt user
