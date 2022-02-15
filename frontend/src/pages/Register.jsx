@@ -1,12 +1,27 @@
 import React, { useEffect, useState } from "react"
-import { FaSignInAlt, FaSignOutAlt, FaUser } from "react-icons/fa"
+import { FaUser } from "react-icons/fa"
+import { useSelector, useDispatch } from "react-redux"
+import { useNavigate } from "react-router-dom"
+import { toast } from "react-toastify"
+import { register, reset } from "../features/auth/authSlice"
+
 const Register = () => {
   const [form, setform] = useState({
     name: "",
-    emai: "",
+    email: "",
     password: "",
     confirmPassword: "",
   })
+
+  const { name, email, password, confirmPassword } = form
+
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  const { user, isError, isLoading, isSuccess, message } = useSelector(
+    (state) => state.auth
+  )
+  if (user) console.log(user)
 
   const handleChange = (e) => {
     setform((prev) => ({ ...prev, [e.target.name]: e.target.value }))
@@ -14,9 +29,29 @@ const Register = () => {
 
   const submitForm = (e) => {
     e.preventDefault()
+    if (password !== confirmPassword) {
+      toast.error("Passwords do not match")
+    } else {
+      dispatch(register(form))
+    }
   }
 
-  const { name, email, password, confirmPassword } = form
+  useEffect(() => {
+    if (isError) {
+      toast.error(message)
+    }
+
+    if (isSuccess || user) {
+      toast.success("Register Successful")
+      navigate("/")
+    }
+
+    dispatch(reset())
+  }, [user, isError, isSuccess, message, dispatch, navigate])
+
+  if (isLoading) {
+    return <div>Loading...</div>
+  }
   return (
     <div className="container">
       <section>

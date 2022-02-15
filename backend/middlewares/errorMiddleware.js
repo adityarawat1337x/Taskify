@@ -1,9 +1,10 @@
-const taskErrorHandler = (err, req, res, next) => {
-  const statusCode = res.statusCode ? res.statusCode : 500;
+const taskErrorHandler = (error, req, res, next) => {
+  const statusCode = res.statusCode ? res.statusCode : 500
   res.status(statusCode).json({
-    error: err.message,
-    stack: process.env.NODE_ENV === "production" ? undefined : err.stack,
-  });
-};
+    message: error.message,
+    stack: process.env.NODE_ENV === "production" ? undefined : error.stack,
+  })
+  next()
+}
 
-module.exports = { taskErrorHandler };
+module.exports = { taskErrorHandler }

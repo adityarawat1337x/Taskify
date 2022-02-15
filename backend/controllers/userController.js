@@ -40,6 +40,7 @@ const addUser = expressAsyncHandler(async (req, res) => {
       token: genToken(newUser.id),
     })
   } else {
+    res.status(400)
     throw new Error("User creation failed")
   }
 })
@@ -65,6 +66,7 @@ const loginUser = expressAsyncHandler(async (req, res) => {
       .status(200)
       .json({ _id: user.id, name: user.name, token: genToken(user.id) })
 
+  res.status(400)
   throw new Error("Invalid credentials")
 })
 
@@ -88,7 +90,7 @@ const deleteUser = expressAsyncHandler(async (req, res) => {
   res.status(200).json(user)
 })
 
-//!@desc update jwt user
+//TODO: //!@desc update jwt user
 //!@route PUT /api/user/me/update
 //!@access private
 
