@@ -1,8 +1,18 @@
+import {
+  Input,
+  Box,
+  VStack,
+  FormControl,
+  FormLabel,
+  Button,
+  Spacer,
+  HStack,
+} from "@chakra-ui/react"
 import React, { useState, useEffect } from "react"
-import { FaUser } from "react-icons/fa"
 import { useDispatch, useSelector } from "react-redux"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
+import styled from "styled-components"
 import { reset, login } from "../features/auth/authSlice"
 
 const Login = () => {
@@ -35,48 +45,78 @@ const Login = () => {
     }
 
     if (isSuccess || user) {
-      toast.success("Login Successful")
+      toast.success("Logged In")
       navigate("/")
     }
 
     dispatch(reset())
   }, [user, isError, isSuccess, message, dispatch, navigate])
 
-  if (isLoading) {
-    return <div>Loading...</div>
-  }
   return (
-    <div className="container">
-      <section>
-        <h1>
-          <FaUser />
-          Login
-        </h1>
-      </section>
-      <section>
-        <form onSubmit={submitForm} className="form">
-          <input
-            type="text"
-            id="email"
-            name="email"
-            value={email}
-            placeholder="JohnDoe@gmail.com"
-            onChange={handleChange}
-          />
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={password}
-            placeholder="Password"
-            onChange={handleChange}
-          />
+    <VStack height="100vh" align="center">
+      <Spacer />
+      <Main>Sign In</Main>
+      <VStack>
+        <FormControl>
+          <Form onSubmit={submitForm}>
+            <FormLabel htmlFor="email">Email address</FormLabel>
+            <Input
+              width="xs"
+              variant="filled"
+              type="text"
+              id="email"
+              name="email"
+              value={email}
+              placeholder="JohnDoe@gmail.com"
+              onChange={handleChange}
+              mb="5"
+            />
+            <HStack align="centre" justify="space-between">
+              <FormLabel htmlFor="password">Password</FormLabel>
+              <Forgot to="/register">Forgot Password?</Forgot>
+            </HStack>
 
-          <button type="submit">Login</button>
-        </form>
-      </section>
-    </div>
+            <Input
+              width="xs"
+              variant="filled"
+              type="password"
+              id="password"
+              name="password"
+              value={password}
+              placeholder="Password"
+              onChange={handleChange}
+            />
+            <Spacer />
+            <Button
+              isLoading={isLoading === true}
+              loadingText="Signing In"
+              mt={5}
+              width="100%"
+              colorScheme="green"
+              type="submit"
+            >
+              Sign In
+            </Button>
+          </Form>
+        </FormControl>
+      </VStack>
+      <Spacer />
+    </VStack>
   )
 }
+const Main = styled(Box)`
+  font-size: 1.6rem;
+  font-weight: bold;
+`
+const Form = styled.form`
+  font-size: 1.6rem;
+  font-weight: bold;
+`
 
+const Forgot = styled(Link)`
+  font-size: 0.9rem;
+  color: #1e8ff4;
+  font-family: sans-serif;
+  font-weight: 200;
+`
 export default Login
