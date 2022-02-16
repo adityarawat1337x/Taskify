@@ -7,7 +7,6 @@ const API_URL_LOGIN = "http://localhost:5000/api/user/login"
 
 const register = async (user) => {
   const response = await axios.post(API_URL_REGISTER, user)
-  console.log("response form server", response)
   if (response.data) localStorage.setItem("user", JSON.stringify(response.data))
   return response.data
 }
@@ -16,7 +15,6 @@ const register = async (user) => {
 
 const login = async (user) => {
   const response = await axios.post(API_URL_LOGIN, user)
-  console.log("response form server", response)
   if (response.data) localStorage.setItem("user", JSON.stringify(response.data))
   return response.data
 }

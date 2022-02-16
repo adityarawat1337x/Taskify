@@ -2,7 +2,7 @@ import React from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Link, useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
-import { logout, reset } from "../features/auth/authSlice"
+import { logout, reset } from "../feature/auth/authSlice"
 import {
   Flex,
   Spacer,
@@ -12,9 +12,11 @@ import {
   HStack,
 } from "@chakra-ui/react"
 import { IconButton } from "@chakra-ui/button"
+import { Icon } from "@chakra-ui/react"
 import { BsMoonFill } from "react-icons/bs"
 import { FaSun } from "react-icons/fa"
 import styled from "styled-components"
+import { MdAddTask } from "react-icons/md"
 
 const Header = () => {
   const { user } = useSelector((state) => state.auth)
@@ -34,7 +36,9 @@ const Header = () => {
       align="center"
     >
       <Main>
-        <Link to="/">Tasks</Link>
+        <Link to="/">
+          <Icon as={MdAddTask}></Icon>
+        </Link>
       </Main>
       <Spacer />
       <Sub spacing="3">
@@ -77,6 +81,8 @@ const Navbar = styled(Flex)`
 `
 const Main = styled(Box)`
   font-size: 1.5rem;
+  align-items: center;
+  justify-content: center;
 `
 const Sub = styled(HStack)``
 export default Header

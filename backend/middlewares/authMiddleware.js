@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken")
 const User = require("../models/userModel")
 
 const protect = expressAsyncHandler(async (req, res, next) => {
-  let token
+  let token = null
   if (
     req.headers.authorization &&
     req.headers.authorization.startsWith("Bearer") //? check if token exists
@@ -30,7 +30,7 @@ const protect = expressAsyncHandler(async (req, res, next) => {
     }
   }
 
-  if (!token) {
+  if (token == null) {
     res.status(401)
     throw new Error("Not authorized, No token Found")
   }

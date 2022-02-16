@@ -13,7 +13,7 @@ import { useNavigate, Link } from "react-router-dom"
 import { toast } from "react-toastify"
 import styled from "styled-components"
 import AnimatedRouteWrapper from "../providers/AnimatedRouteWrapper"
-import { register, reset } from "../features/auth/authSlice"
+import { register, reset } from "../feature/auth/authSlice"
 
 const Register = () => {
   const [form, setform] = useState({

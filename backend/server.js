@@ -3,14 +3,18 @@ const colors = require("colors")
 const dotenv = require("dotenv").config()
 const connectDB = require("./config/db")
 const { taskErrorHandler } = require("./middlewares/errorMiddleware")
-const { allowCrossDomain } = require("./middlewares/corsMiddleware")
+const cors = require("cors")
 
 const port = process.env.PORT || 8000
+const corsOptions = {
+  origin: "http://localhost:3000",
+  credentials: true,
+  optionSuccessStatus: 200,
+}
 
 connectDB()
 const app = express()
-
-app.use(allowCrossDomain)
+app.use(cors(corsOptions))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use("/api/task", require("./routes/taskRoute"))
