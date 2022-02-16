@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { Link, useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
 import styled from "styled-components"
+import AnimatedRouteWrapper from "../providers/AnimatedRouteWrapper"
 import { reset, login } from "../features/auth/authSlice"
 
 const Login = () => {
@@ -44,64 +45,67 @@ const Login = () => {
       toast.error(message)
     }
 
-    if (isSuccess || user) {
-      toast.success("Logged In")
+    if (!isLoading && (isSuccess || user)) {
+      //toast.success("Logged In")
       navigate("/")
     }
 
     dispatch(reset())
-  }, [user, isError, isSuccess, message, dispatch, navigate])
+  }, [user, isError, isSuccess, isLoading, message, dispatch, navigate])
 
   return (
-    <VStack height="100vh" align="center">
-      <Spacer />
-      <Main>Sign In</Main>
-      <VStack>
-        <FormControl>
-          <Form onSubmit={submitForm}>
-            <FormLabel htmlFor="email">Email address</FormLabel>
-            <Input
-              width="xs"
-              variant="filled"
-              type="text"
-              id="email"
-              name="email"
-              value={email}
-              placeholder="JohnDoe@gmail.com"
-              onChange={handleChange}
-              mb="5"
-            />
-            <HStack align="centre" justify="space-between">
-              <FormLabel htmlFor="password">Password</FormLabel>
-              <Forgot to="/register">Forgot Password?</Forgot>
-            </HStack>
-
-            <Input
-              width="xs"
-              variant="filled"
-              type="password"
-              id="password"
-              name="password"
-              value={password}
-              placeholder="Password"
-              onChange={handleChange}
-            />
-            <Spacer />
-            <Button
-              isLoading={isLoading === true}
-              loadingText="Signing In"
-              mt={5}
-              width="100%"
-              colorScheme="green"
-              type="submit"
-            >
-              Sign In
-            </Button>
-          </Form>
-        </FormControl>
+    <AnimatedRouteWrapper>
+      <VStack height="100vh" align="center">
+        <Spacer />
+        <Main>Sign In</Main>
+        <VStack>
+          <FormControl>
+            <Form onSubmit={submitForm}>
+              <FormLabel htmlFor="email">Email address</FormLabel>
+              <Input
+                width="xs"
+                variant="filled"
+                type="text"
+                id="email"
+                name="email"
+                value={email}
+                placeholder="JohnDoe@gmail.com"
+                onChange={handleChange}
+                mb="5"
+              />
+              <HStack align="centre" justify="space-between">
+                <FormLabel htmlFor="password">Password</FormLabel>
+                <Forgot to="/register">Forgot Password?</Forgot>
+              </HStack>
+              <Input
+                width="xs"
+                variant="filled"
+                type="password"
+                id="password"
+                name="password"
+                value={password}
+                placeholder="Password"
+                onChange={handleChange}
+                mb="5"
+              />
+              <Spacer />
+              <Button
+                isLoading={isLoading === true}
+                loadingText="Signing In"
+                mt={5}
+                width="100%"
+                colorScheme="green"
+                type="submit"
+              >
+                Sign In
+              </Button>
+              <Forgot to="/register">Don't have an account?</Forgot>
+            </Form>
+          </FormControl>
+        </VStack>
+        <Spacer />
       </VStack>
-      <Spacer />
-    </VStack>
+    </AnimatedRouteWrapper>
   )
 }
 const Main = styled(Box)`

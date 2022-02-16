@@ -37,28 +37,17 @@ const Header = () => {
         <Link to="/">Tasks</Link>
       </Main>
       <Spacer />
-      <Sub spacing="2">
+      <Sub spacing="3">
         {user ? (
-          <Button variant="ghost">
-            <button
-              onClick={() => {
-                dispatch(reset())
-                dispatch(logout()).then(() => {
-                  toast.success("Signed Out", {
-                    position: "top-center",
-                    autoClose: 2000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                  })
-                  navigate("/")
-                })
-              }}
-            >
-              logout
-            </button>
+          <Button
+            variant="ghost"
+            onClick={() => {
+              navigate("/login")
+              dispatch(logout()).then(() => dispatch(reset()))
+              toast.success("Logged Out")
+            }}
+          >
+            logout
           </Button>
         ) : (
           <>

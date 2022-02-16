@@ -1,24 +1,28 @@
 import { Center, Heading } from "@chakra-ui/react"
 import { React, useEffect } from "react"
 import { useSelector } from "react-redux"
-import { useNavigate } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
+import AnimatedRouteWrapper from "../providers/AnimatedRouteWrapper"
 
 const Dashboard = () => {
   const navigate = useNavigate()
-  const { user } = useSelector((state) => state.auth)
+  const location = useLocation()
+  const { user, isLoading } = useSelector((state) => state.auth)
 
   useEffect(() => {
-    if (!user) {
+    if (!user && !isLoading && location.pathname === "/") {
       toast.error("You must be logged in to view this page")
       navigate("/login")
     }
-  }, [user, navigate])
+  }, [user, isLoading, location, navigate])
 
   return (
-    <Center h="100vh">
-      <Heading>Dashboard</Heading>
-    </Center>
+    <AnimatedRouteWrapper>
+      <Center h="100vh">
+        <Heading>Dashboard</Heading>
+      </Center>
+    </AnimatedRouteWrapper>
   )
 }
 
