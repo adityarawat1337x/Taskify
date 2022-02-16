@@ -14,7 +14,7 @@ import { Link, useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
 import styled from "styled-components"
 import AnimatedRouteWrapper from "../providers/AnimatedRouteWrapper"
-import { reset, login } from "../features/auth/authSlice"
+import { reset, login } from "../feature/auth/authSlice"
 
 const Login = () => {
   const [form, setform] = useState({
