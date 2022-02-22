@@ -16,7 +16,7 @@ const corsOptions = {
 
 connectDB()
 const app = express()
-//app.use(cors(corsOptions))
+app.use(cors(corsOptions))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use("/api/task", require("./routes/taskRoute"))
