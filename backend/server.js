@@ -6,7 +6,8 @@ const connectDB = require("./config/db")
 const { taskErrorHandler } = require("./middlewares/errorMiddleware")
 const cors = require("cors")
 
-const port = process.env.PORT || 8000
+const port = process.env.PORT || 5000
+
 const corsOptions = {
   origin: "http://localhost:3000",
   credentials: true,
@@ -15,7 +16,7 @@ const corsOptions = {
 
 connectDB()
 const app = express()
-app.use(cors(corsOptions))
+//app.use(cors(corsOptions))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use("/api/task", require("./routes/taskRoute"))
