@@ -7,6 +7,8 @@ import {
   Button,
   Spacer,
   HStack,
+  Container,
+  useColorModeValue,
 } from "@chakra-ui/react"
 import React, { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
@@ -22,6 +24,7 @@ const Login = () => {
     password: "",
   })
 
+  const bg = useColorModeValue("white", "gray.900")
   const { email, password } = form
 
   const dispatch = useDispatch()
@@ -55,54 +58,69 @@ const Login = () => {
 
   return (
     <AnimatedRouteWrapper>
-      <VStack height="100vh" align="center">
+      <VStack height="100vh">
         <Spacer />
-        <Main>Sign In</Main>
-        <VStack>
-          <FormControl>
-            <Form onSubmit={submitForm}>
-              <FormLabel htmlFor="email">Email address</FormLabel>
-              <Input
-                width="xs"
-                variant="filled"
-                type="text"
-                id="email"
-                name="email"
-                value={email}
-                placeholder="JohnDoe@gmail.com"
-                onChange={handleChange}
-                mb="5"
-              />
-              <HStack align="centre" justify="space-between">
-                <FormLabel htmlFor="password">Password</FormLabel>
-                <Forgot to="/register">Forgot Password?</Forgot>
-              </HStack>
-              <Input
-                width="xs"
-                variant="filled"
-                type="password"
-                id="password"
-                name="password"
-                value={password}
-                placeholder="Password"
-                onChange={handleChange}
-                mb="5"
-              />
-              <Spacer />
-              <Button
-                isLoading={isLoading === true}
-                loadingText="Signing In"
-                mt={5}
-                width="100%"
-                colorScheme="green"
-                type="submit"
-              >
-                Sign In
-              </Button>
-              <Forgot to="/register">Don't have an account?</Forgot>
-            </Form>
-          </FormControl>
-        </VStack>
+        <Container align="center" backgroundColor={bg} p="10" rounded="xl">
+          <Main>Sign In</Main>
+          <VStack>
+            <Spacer />
+            <FormControl>
+              <Form onSubmit={submitForm}>
+                <FormLabel width="xs" htmlFor="email">
+                  Email address
+                </FormLabel>
+                <Input
+                  width="xs"
+                  variant="filled"
+                  type="text"
+                  id="email"
+                  name="email"
+                  value={email}
+                  placeholder="JohnDoe@gmail.com"
+                  onChange={handleChange}
+                  mb="5"
+                />
+                <HStack width="xs" align="centre" justify="space-between">
+                  <FormLabel htmlFor="password">Password</FormLabel>
+                  <Forgot to="/register">Forgot Password?</Forgot>
+                </HStack>
+                <Input
+                  width="xs"
+                  variant="filled"
+                  type="password"
+                  id="password"
+                  name="password"
+                  value={password}
+                  placeholder="Password"
+                  onChange={handleChange}
+                  mb="5"
+                />
+                <Spacer />
+                <Button
+                  isLoading={isLoading === true}
+                  loadingText="Signing In"
+                  mt={5}
+                  width="xs"
+                  colorScheme="green"
+                  type="submit"
+                >
+                  Sign In
+                </Button>
+                <Spacer />
+                <span
+                  style={{
+                    fontSize: "0.9rem",
+                    fontWeight: "lighter",
+                    color: "gray",
+                  }}
+                >
+                  Don't have an account?
+                </span>
+                <Forgot to="/register"> Sign Up</Forgot>
+              </Form>
+            </FormControl>
+          </VStack>
+        </Container>
         <Spacer />
       </VStack>
     </AnimatedRouteWrapper>

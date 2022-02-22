@@ -6,7 +6,7 @@ import light from "../assets/light.jpg"
 const BackGroundProvider = (props) => {
   const bgI = useColorModeValue(light, dark)
   return (
-    <Box overflow="hidden" h="100vh" bgImage={bgI}>
+    <Box overflow="hidden" h="100vh" backgroundImage={bgI}>
       {props.children}
     </Box>
   )

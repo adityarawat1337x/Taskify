@@ -56,10 +56,10 @@ const Header = () => {
         ) : (
           <>
             <Button variant="ghost">
-              <Link to="/register">SignUp</Link>
-            </Button>
-            <Button variant="ghost">
               <Link to="/login">Login</Link>
+            </Button>
+            <Button variant="solid" colorScheme="messenger">
+              <Link to="/register">SignUp</Link>
             </Button>
           </>
         )}

@@ -30,19 +30,18 @@ const postTask = expressAsyncHandler(async (req, res) => {
   res.status(200).json(newTask)
 })
 
-//!@desc udpdate task
+//!@desc update task
 //!@route PUT /api/task/:id
 //!@access private
 const putTask = expressAsyncHandler(async (req, res) => {
   const task = await Task.findById(req.params.id)
-  const user = await User.findById(req.user.id)
 
   if (!task) {
     res.status(404)
     throw new Error("Task not found")
   }
 
-  if (user._id.toString !== task.user) {
+  if (req.user._id.toString() !== task.user.toString()) {
     res.status(401)
     throw new Error("Unauthorized")
   }
@@ -59,14 +58,13 @@ const putTask = expressAsyncHandler(async (req, res) => {
 //!@access private
 const deleteTask = expressAsyncHandler(async (req, res) => {
   const task = await Task.findById(req.params.id)
-  const user = await User.findById(req.user.id)
 
   if (!task) {
     res.status(404)
     throw new Error("Task not found")
   }
 
-  if (user._id.toString !== task.user) {
+  if (req.user._id.toString() !== task.user.toString()) {
     res.status(401)
     throw new Error("Unauthorized")
   }

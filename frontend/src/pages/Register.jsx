@@ -6,6 +6,8 @@ import {
   FormLabel,
   Button,
   Spacer,
+  Container,
+  useColorModeValue,
 } from "@chakra-ui/react"
 import React, { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
@@ -25,6 +27,7 @@ const Register = () => {
 
   const { name, email, password, confirmPassword } = form
 
+  const bg = useColorModeValue("white", "gray.900")
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -63,73 +66,94 @@ const Register = () => {
     <AnimatedRouteWrapper>
       <VStack h="100vh" align="center">
         <Spacer />
-        <Main>Sign Up</Main>
-        <VStack h="max-content" align="center" justify="center">
-          <FormControl>
-            <Form onSubmit={submitForm}>
-              <FormLabel htmlFor="name">Full Name</FormLabel>
-              <Input
-                width="xs"
-                variant="filled"
-                type="text"
-                id="name"
-                name="name"
-                value={name}
-                placeholder="John"
-                onChange={handleChange}
-                mb="3"
-              />
-              <FormLabel htmlFor="email">Email address</FormLabel>
-              <Input
-                width="xs"
-                variant="filled"
-                type="text"
-                id="email"
-                name="email"
-                value={email}
-                placeholder="JohnDoe@gmail.com"
-                onChange={handleChange}
-                mb="3"
-              />
-              <FormLabel htmlFor="password">Password</FormLabel>
-              <Input
-                width="xs"
-                variant="filled"
-                type="password"
-                id="password"
-                name="password"
-                value={password}
-                placeholder="Password"
-                onChange={handleChange}
-                mb="3"
-              />
-              <FormLabel htmlFor="confirmPassword">Confirm Password</FormLabel>
-              <Input
-                width="xs"
-                variant="filled"
-                type="password"
-                id="confirmPassword"
-                name="confirmPassword"
-                value={confirmPassword}
-                placeholder="Confirm Password"
-                onChange={handleChange}
-                mb="3"
-              />
-              <Spacer />
-              <Button
-                isLoading={isLoading === true}
-                loadingText="Signing Up"
-                mt={5}
-                width="100%"
-                colorScheme="blue"
-                type="submit"
-              >
-                Sign Up
-              </Button>
-              <Forgot to="/login">Already have an account?</Forgot>
-            </Form>
-          </FormControl>
-        </VStack>
+
+        <Container align="center" backgroundColor={bg} p="10" rounded="xl">
+          <Main>Sign Up</Main>
+          <VStack h="max-content" align="center" justify="center">
+            <FormControl>
+              <Form onSubmit={submitForm}>
+                <FormLabel width="xs" htmlFor="name">
+                  Full Name
+                </FormLabel>
+                <Input
+                  width="xs"
+                  variant="filled"
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={name}
+                  placeholder="John"
+                  onChange={handleChange}
+                  mb="3"
+                />
+                <FormLabel width="xs" htmlFor="email">
+                  Email address
+                </FormLabel>
+                <Input
+                  width="xs"
+                  variant="filled"
+                  type="text"
+                  id="email"
+                  name="email"
+                  value={email}
+                  placeholder="JohnDoe@gmail.com"
+                  onChange={handleChange}
+                  mb="3"
+                />
+                <FormLabel width="xs" htmlFor="password">
+                  Password
+                </FormLabel>
+                <Input
+                  width="xs"
+                  variant="filled"
+                  type="password"
+                  id="password"
+                  name="password"
+                  value={password}
+                  placeholder="Password"
+                  onChange={handleChange}
+                  mb="3"
+                />
+                <FormLabel width="xs" htmlFor="confirmPassword">
+                  Confirm Password
+                </FormLabel>
+                <Input
+                  width="xs"
+                  variant="filled"
+                  type="password"
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  value={confirmPassword}
+                  placeholder="Confirm Password"
+                  onChange={handleChange}
+                  mb="3"
+                />
+                <Spacer />
+                <Button
+                  isLoading={isLoading === true}
+                  loadingText="Signing Up"
+                  mt={5}
+                  width="xs"
+                  colorScheme="blue"
+                  type="submit"
+                >
+                  Sign Up
+                </Button>
+                <Spacer />
+                <span
+                  style={{
+                    fontSize: "0.9rem",
+                    fontWeight: "lighter",
+                    color: "gray",
+                  }}
+                >
+                  Already have an account?
+                </span>
+                <Forgot to="/login"> Sign In</Forgot>
+              </Form>
+            </FormControl>
+          </VStack>
+        </Container>
         <Spacer />
       </VStack>
     </AnimatedRouteWrapper>

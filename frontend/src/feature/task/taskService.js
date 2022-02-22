@@ -30,10 +30,14 @@ const updateTask = async (user, id, task) => {
   return response.data
 }
 
-const deleteTask = async (user, id) => {
-  const response = await axios.delete(API_URL + id, {
-    headers: { Authorization: `Bearer ${user.token}` },
-  })
+const deleteTask = async (token, id) => {
+  console.log("delete task data: ", token)
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }
+  const response = await axios.delete(API_URL + id, config)
   return response.data
 }
 

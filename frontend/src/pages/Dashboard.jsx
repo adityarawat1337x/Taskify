@@ -1,10 +1,25 @@
-import { Button, Box, VStack, Heading, Spacer, Input } from "@chakra-ui/react"
+import {
+  Button,
+  HStack,
+  VStack,
+  Heading,
+  Spacer,
+  Input,
+  IconButton,
+  Box,
+} from "@chakra-ui/react"
 import { React, useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useLocation, useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
-import { createTask, getTasks, reset } from "../feature/task/taskSlice"
+import {
+  createTask,
+  getTasks,
+  reset,
+  deleteTask,
+} from "../feature/task/taskSlice"
 import AnimatedRouteWrapper from "../providers/AnimatedRouteWrapper"
+import { AiFillDelete } from "react-icons/ai"
 
 const Dashboard = () => {
   const navigate = useNavigate()
@@ -14,9 +29,11 @@ const Dashboard = () => {
   const { user, isLoading } = useSelector((state) => state.auth)
   const [newTask, setnewTask] = useState("")
   const { tasks } = useSelector((state) => state.task)
+
   const handleChange = (e) => {
     setnewTask(e.target.value)
   }
+
   useEffect(() => {
     if (!user && !isLoading && location.pathname === "/") {
       toast.error("You must be logged in to view this page")
@@ -26,14 +43,29 @@ const Dashboard = () => {
 
     dispatch(reset())
   }, [user, isLoading, location, dispatch, tasks, navigate])
-  console.log("new Task:", newTask)
+
   return (
     <AnimatedRouteWrapper>
       <VStack h="100vh">
         <Spacer />
         <Heading>Dashboard</Heading>
         <Spacer />
-        {tasks ? tasks.map((task) => <Box>{task.task}</Box>) : <></>}
+        {tasks ? (
+          tasks.map((task) => (
+            <HStack>
+              <Box>{task.task}</Box>
+              <Spacer />
+              <IconButton
+                isRound={true}
+                colorScheme="red"
+                icon={<AiFillDelete />}
+                onClick={() => dispatch(deleteTask(task._id))}
+              />
+            </HStack>
+          ))
+        ) : (
+          <></>
+        )}
         <Spacer />
         <Button onClick={() => dispatch(getTasks(user))}>Get All Tasks</Button>
         <Spacer />
@@ -51,7 +83,7 @@ const Dashboard = () => {
         <Button
           onClick={() =>
             dispatch(createTask({ user, task: newTask })).then(() =>
-              dispatch(getTasks(user))
+              setnewTask("")
             )
           }
         >
