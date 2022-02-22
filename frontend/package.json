@@ -1,6 +1,7 @@
 {
   "name": "frontend",
   "version": "0.1.0",
+  "proxy": "http://localhost:5000",
   "private": true,
   "dependencies": {
     "@chakra-ui/react": "^1.8.3",
@@ -21,7 +22,6 @@
     "react-toastify": "^8.2.0",
     "styled-components": "^5.3.3"
   },
-  "proxy": "http://localhost:5000",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
